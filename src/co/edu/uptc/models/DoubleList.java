@@ -4,46 +4,69 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class DoubleList implements List<Integer>{
+public class DoubleList<T> implements List<T>{
 
-    private Node header;
-    private Node lastNode;
+    private Node<T> header;
+    private Node<T> lastNode;
+    public int size = 0;
+    private Node<T> lastGet = null;
+    private int lastGetIndex = -1;
+
+    public DoubleList(){
+        header = null;
+        lastNode = null;
+    }
 
     @Override
-    public boolean add(Integer info) {
-        // TODO Auto-generated method stub
-        Node newNode = new Node();
-        newNode.setInfo(info);
+    public boolean add(T e) {
+        Node<T> newNode = new Node<T>();
+        newNode.setInfo(e);
+        size++;
         if(header == null){
             header = newNode;
             lastNode = header;
-            return true;
         }else{
             lastNode.setNext(newNode);
             newNode.setBack(lastNode);
             lastNode = newNode;
-            return true;
         }
+        return true;
+    }
+    
+    @Override
+    public boolean isEmpty() {
+        return header == null;
     }
 
-    
-
-    @Override
-    public boolean remove(Object o) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    // test algoritm 
+    public void showList(){
+        Node<T> aux =  header;
+        while (aux!=null) {
+            System.out.println(aux.getInfo());
+            aux = aux.getNext();
+        }
     }
 
     @Override
     public int size() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'size'");
+        return size;
     }
 
     @Override
-    public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'isEmpty'");
+    public T get(int index) {
+        if(lastGet == null){
+            lastGet = lastNode;
+        }else{
+            if(lastGet.getBack() != null)
+            lastGet = lastGet.getBack();
+            else return null;
+        }
+        return lastGet.getInfo();
+    }
+
+    @Override
+    public Iterator<T> iterator() {
+        return new DoubleListIterator<>(lastNode);
     }
 
     @Override
@@ -53,53 +76,45 @@ public class DoubleList implements List<Integer>{
     }
 
     @Override
-    public Iterator<Integer> iterator() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'iterator'");
-    }
-
-    @Override
     public Object[] toArray() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'toArray'");
     }
-
     @Override
     public <T> T[] toArray(T[] a) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'toArray'");
     }
-
+    @Override
+    public boolean remove(Object o) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'remove'");
+    }
     @Override
     public boolean containsAll(Collection<?> c) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'containsAll'");
     }
-
     @Override
-    public boolean addAll(Collection<? extends Integer> c) {
+    public boolean addAll(Collection<? extends T> c) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addAll'");
     }
-
     @Override
-    public boolean addAll(int index, Collection<? extends Integer> c) {
+    public boolean addAll(int index, Collection<? extends T> c) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'addAll'");
     }
-
     @Override
     public boolean removeAll(Collection<?> c) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'removeAll'");
     }
-
     @Override
     public boolean retainAll(Collection<?> c) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'retainAll'");
     }
-
     @Override
     public void clear() {
         // TODO Auto-generated method stub
@@ -107,58 +122,44 @@ public class DoubleList implements List<Integer>{
     }
 
     @Override
-    public Integer get(int index) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'get'");
-    }
-
-    @Override
-    public Integer set(int index, Integer element) {
+    public T set(int index, T element) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'set'");
     }
-
     @Override
-    public void add(int index, Integer element) {
+    public void add(int index, T element) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'add'");
     }
-
     @Override
-    public Integer remove(int index) {
+    public T remove(int index) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'remove'");
     }
-
     @Override
     public int indexOf(Object o) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'indexOf'");
     }
-
     @Override
     public int lastIndexOf(Object o) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'lastIndexOf'");
     }
-
     @Override
-    public ListIterator<Integer> listIterator() {
+    public ListIterator<T> listIterator() {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
     }
-
     @Override
-    public ListIterator<Integer> listIterator(int index) {
+    public ListIterator<T> listIterator(int index) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'listIterator'");
     }
-
     @Override
-    public List<Integer> subList(int fromIndex, int toIndex) {
+    public List<T> subList(int fromIndex, int toIndex) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'subList'");
-    }
-
+    }    
     
 }
