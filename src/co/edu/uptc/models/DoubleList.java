@@ -9,8 +9,6 @@ public class DoubleList<T> implements List<T>{
     private Node<T> header;
     private Node<T> lastNode;
     public int size = 0;
-    private Node<T> lastGet = null;
-    private int lastGetIndex = -1;
 
     public DoubleList(){
         header = null;
@@ -69,6 +67,26 @@ public class DoubleList<T> implements List<T>{
         return current.getInfo();
     }
     
+    @Override
+    public T set(int index, T element) {
+        Node<T> current;
+        if (index < size / 2) {
+            current = header;
+            for (int i = 0; i < index; i++) {
+                current = current.getNext();
+            }
+        } else {
+            current = lastNode;
+            for (int i = size - 1; i > index; i--) {
+                current = current.getBack();
+            }
+        }
+
+        T oldInfo = current.getInfo();
+        current.setInfo(element);
+        return oldInfo;
+    }
+
 
     @Override
     public Iterator<T> iterator() {
@@ -127,11 +145,6 @@ public class DoubleList<T> implements List<T>{
         throw new UnsupportedOperationException("Unimplemented method 'clear'");
     }
 
-    @Override
-    public T set(int index, T element) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'set'");
-    }
     @Override
     public void add(int index, T element) {
         // TODO Auto-generated method stub
