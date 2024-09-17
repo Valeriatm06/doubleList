@@ -54,15 +54,21 @@ public class DoubleList<T> implements List<T>{
 
     @Override
     public T get(int index) {
-        if(lastGet == null){
-            lastGet = lastNode;
-        }else{
-            if(lastGet.getBack() != null)
-            lastGet = lastGet.getBack();
-            else return null;
+        Node<T> current;
+        if (index < size / 2) {
+            current = header;
+            for (int i = 0; i < index; i++) {
+                current = current.getNext();
+            }
+        } else {
+            current = lastNode;
+            for (int i = size - 1; i > index; i--) {
+                current = current.getBack();
+            }
         }
-        return lastGet.getInfo();
+        return current.getInfo();
     }
+    
 
     @Override
     public Iterator<T> iterator() {
