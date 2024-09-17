@@ -1,16 +1,29 @@
 import java.util.ArrayList;
 import java.util.List;
 
+import co.edu.uptc.models.IntegerCalculator;
+import co.edu.uptc.models.Operation;
+import co.edu.uptc.test.RealCal;
+import co.edu.uptc.test.Test;
+
 public class App {
     public static void main(String[] args) throws Exception {
         
-         List<Integer> randomNumber = generateRandomNumer(10000, 1, 10000);
+          List<Integer> randomNumber = generateRandomNumer(10000, 1, 10000);
+    
+          Test testObject = new Test();
 
-          DemoArrayList ar = new DemoArrayList();
-          ar.testArrayList(randomNumber);
+          testObject.testArrayList(randomNumber);
 
-          DemoDoubleList sl = new DemoDoubleList();
-          sl.testDoubleList(randomNumber);;
+          RealCal<Integer> ra = new RealCal<>();
+
+          IntegerCalculator<Integer> intCal = new IntegerCalculator<>(testObject.getList(), Operation.SUM);
+          ra.run(intCal,"Array List");
+
+          intCal.resetResult();
+    
+          testObject.testDoubleList(randomNumber);;
+          ra.run(intCal,"DoubleL ist");
 
     }
 
